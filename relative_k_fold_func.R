@@ -1,11 +1,17 @@
 spp <- as.data.frame(read.csv('JSDM_4species_without_forest_plots.csv'))
-
-# original example from Digg Data website (Takashi J. OZAKI, Ph. D.) 
-# http://diggdata.in/post/58333540883/k-fold-cross-validation-in-r
-
-d <- transform(spp, id = as.numeric(interaction(EMBHOR, EMBCIT, ANTTRI, ANTSPI, drop=TRUE)))
-
-d <- d[order(d[,ncol(d)]),]
+nk <- 5
+nkl <- 5
+kfold_data <- list()
+for(i in 1:nk){
+  pres <-as.data.frame(apply(spp[,c(2,3,4,5)],2,function(x) rbinom(x,x,1/nkl)))
+  print(colSums(pres))
+  pres_id <- as.numeric(rownames(pres[rowSums(sapply(pres[,1:4],`!=`,e2=0))==1,]))
+  abs_id <- sample(as.numeric(rownames(pres[rowSums(sapply(pres[,1:4],`!=`,e2=0))==0,])),nrow(pres)/nkl,replace = TRUE)
+  print(nrow(spp[unique(c(pres_id,abs_id)),]))
+  kfold_data[[i]]<- spp[unique(c(pres_id,abs_id)),]
+#   spp <- spp[-unique(c(pres_id,abs_id)),]
+#   nkl <- nkl - 1
+}  
 
 library(plyr)
 library(randomForest)
