@@ -13,11 +13,10 @@ createFolds <- function(x,k){
 }
 
 folds <- ddply(spp,.(EMBHOR, EMBCIT, ANTTRI, ANTSPI),createFolds,k = nk)
-
 for(ii in 1:nk){
   kfold_test[[ii]]<-folds[folds$folds==ii,]
   kfold_validate[[ii]]<-folds[folds$folds!=ii,]
-  colSums(folds[folds$folds==5,c(2,3,4,5)],na.rm = T)
+  print(colSums(folds[folds$folds==ii,c(2,3,4,5)],na.rm = T))
 }
 
 names(kfold_test) <- paste0('kfold_test_w_out_replacement',1:nk)
