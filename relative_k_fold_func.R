@@ -1,5 +1,4 @@
 spp <- as.data.frame(read.csv('data//JSDM_4species_without_forest_plots.xlsx'))
-
 nk <- 5
 nkl <- 5
 kfold_validate <- list()
