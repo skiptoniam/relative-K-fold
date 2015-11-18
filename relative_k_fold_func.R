@@ -25,32 +25,6 @@ sapply(names(kfold_test),
        function (x) write.csv(kfold_test[[x]], file=paste0(x, ".csv")))
 sapply(names(kfold_validate), 
        function (x) write.csv(kfold_validate[[x]], file=paste0(x, ".csv")))
-# 
-# #sample without replacement
-# d <- transform(spp, id = as.numeric(interaction(EMBHOR, EMBCIT, ANTTRI, ANTSPI, drop=TRUE)))
-# spp <- transform(spp, id = as.numeric(interaction(EMBHOR, EMBCIT, ANTTRI, ANTSPI, drop=TRUE)))
-# 
-# freq_tab <- as.data.frame(table(d$id))
-# sample_number <- freq_tab$Freq*(1/nk)
-# for(ii in 1:nk){
-#     id_list <- list()
-#     for(i in 1:length(unique(d$id))){
-#         id_list[[i]] <- sample(as.numeric(rownames(d[d$id==i,c(2,3,4,5)])),sample_number[i],replace = FALSE)
-#     }
-#     ids <-do.call(c,id_list)
-#     print(colSums(d[ids,c(2,3,4,5)],na.rm = T))
-#     kfold_test[[ii]]<-d[ids,]
-#     kfold_validate[[ii]]<-d[-ids,]
-#     d <- d[-ids,]
-# }
-# 
-# names(kfold_test) <- paste0('kfold_test_w_out_replacement',1:nk)
-# names(kfold_validate) <- paste0('kfold_validate_w_out_replacement',1:nk)
-# sapply(names(kfold_test), 
-#        function (x) write.csv(kfold_test[[x]], file=paste0(x, ".csv")))
-# sapply(names(kfold_validate), 
-#        function (x) write.csv(kfold_validate[[x]], file=paste0(x, ".csv")))
-# 
 
 #sample with replacment
 for(i in 1:nk){
